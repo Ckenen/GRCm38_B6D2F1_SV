@@ -1,0 +1,31 @@
+BUILD: GRCm38
+SPECIES: Mouse
+SAMPLE: DBA
+METHOD: ONT
+FASTA: /home/chenzonggui/species/mus_musculus/GRCm38.p6/GRCm38.primary_assembly.genome.fa
+FASTQ: ../../7_DBA_ONT_bulk/data/20211103-BNP2131-P7-PAI47679.pass.fastq.gz
+MM2_PRESET: map-ont
+THREADS: 24
+OUTDIR: GRCm38_DBA_ONT
+CHROMS:
+ - chr1
+ - chr2
+ - chr3
+ - chr4
+ - chr5
+ - chr6
+ - chr7
+ - chr8
+ - chr9
+ - chr10
+ - chr11
+ - chr12
+ - chr13
+ - chr14
+ - chr15
+ - chr16
+ - chr17
+ - chr18
+ - chr19
+ - chrX
+ - chrY
