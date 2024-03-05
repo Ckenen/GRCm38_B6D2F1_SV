@@ -21,6 +21,10 @@ rule all:
         OUTDIR + "/%s.%s.mmi" % (BUILD, MM2_PRESET),
         OUTDIR + "/%s.mm2.bam" % NAME,
         OUTDIR + "/%s.mm2.flagstat" % NAME,
+        OUTDIR + "/%s.mm2.bw" % NAME,
+        OUTDIR + "/%s.extreme.width_200bp_prop_0.01_0.99.bed" % NAME,
+        OUTDIR + "/%s.extreme.width_500bp_prop_0.01_0.99.bed" % NAME,
+        OUTDIR + "/%s.extreme.width_1000bp_prop_0.01_0.99.bed" % NAME,
         OUTDIR + "/%s.sniffles2.vcf.gz" % NAME,
 
 
@@ -110,6 +114,19 @@ rule minimap2:
         samtools index -@ {threads} {output.bam} ) &> {log}
         """
 
+rule get_extreme_region:
+    input:
+        bw = OUTDIR + "/%s.mm2.bw" % NAME
+    output:
+        bed = OUTDIR + "/%s.extreme.width_{w}bp_prop_{p1}_{p2}.bed" % NAME,
+    threads:
+        12
+    shell:
+        """
+        ./scan_extreme_region.py -w {wildcards.w} -p {wildcards.p1},{wildcards.p2} \
+            -t {threads} {input.bw} {output.bed}
+        """
+
 rule sniffles2:
     input:
         bam = rules.minimap2.output.bam,
@@ -150,4 +167,16 @@ rule flagstat:
     shell:
         """
         samtools flagstat -@ {threads} {input.bam} > {output.txt}
+        """
+
+rule bam2bigwig:
+    input:
+        bam = "{prefix}.bam"
+    output:
+        bw = "{prefix}.bw"
+    threads:
+        12
+    shell:
+        """
+        sstools BamToBigWig -t {threads} -q 0 --secondary --supplementary {input.bam} {output.bw} &> /dev/null
         """
