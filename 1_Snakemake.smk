@@ -123,7 +123,7 @@ rule get_extreme_region:
         12
     shell:
         """
-        ./scan_extreme_region.py -w {wildcards.w} -p {wildcards.p1},{wildcards.p2} \
+        sstools ExtremeRegion -w {wildcards.w} -p {wildcards.p1},{wildcards.p2} \
             -t {threads} {input.bw} {output.bed}
         """
 
