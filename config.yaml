@@ -3,7 +3,7 @@ SPECIES: Mouse
 SAMPLE: DBA
 METHOD: ONT
 FASTA: /home/chenzonggui/species/mus_musculus/GRCm38.p6/GRCm38.primary_assembly.genome.fa
-FASTQ: ../../7_DBA_ONT_bulk/data/20211103-BNP2131-P7-PAI47679.pass.fastq.gz
+FASTQ: data/20211103-BNP2131-P7-PAI47679.pass.fastq.gz
 MM2_PRESET: map-ont
 THREADS: 24
 OUTDIR: GRCm38_DBA_ONT
